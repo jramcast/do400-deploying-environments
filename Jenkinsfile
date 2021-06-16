@@ -47,7 +47,8 @@ pipeline {
                 sh """
                     oc set image \
                         deployment ${DEPLOYMENT_CONFIG_STAGE} \
-                        shopping-cart-stage=quay.io/${QUAY_USR}/do400-deploying-environments:${BUILD_NUMBER}
+                        shopping-cart-stage=quay.io/${QUAY_USR}/do400-deploying-environments:${BUILD_NUMBER} \
+                        -n ${APP_NAMESPACE}
                 """
             }
         }
@@ -60,7 +61,8 @@ pipeline {
                 sh """
                     oc set image \
                         deployment ${DEPLOYMENT_CONFIG_PRODUCTION} \
-                        shopping-cart-production=quay.io/${QUAY_USR}/do400-deploying-environments:${BUILD_NUMBER}
+                        shopping-cart-production=quay.io/${QUAY_USR}/do400-deploying-environments:${BUILD_NUMBER} \
+                        -n ${APP_NAMESPACE}
                 """
             }
         }

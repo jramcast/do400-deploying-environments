@@ -33,7 +33,7 @@ pipeline {
                     -Dquarkus.container-image.name=do400-deploying-environments \
                     -Dquarkus.container-image.username=$QUAY_USR \
                     -Dquarkus.container-image.password='$QUAY_PSW' \
-                    -Dquarkus.container-image.tag=${BUILD_NUMBER} \
+                    -Dquarkus.container-image.tag=build-${BUILD_NUMBER} \
                     -Dquarkus.container-image.push=true
                 """
             }
@@ -55,6 +55,7 @@ pipeline {
         stage('Deploy - Production') {
             environment {
                 APP_NAMESPACE = "${RHT_OCP4_DEV_USER}-shopping-cart-production"
+                QUAY = credentials('QUAY_USER')
             }
             input { message 'Deploy to production?' }
             steps {

@@ -45,7 +45,7 @@ pipeline {
             }
             steps {
                 sh """
-                    oc set image \
+                    oc --record set image \
                         deployment ${DEPLOYMENT_CONFIG_STAGE} \
                         shopping-cart-stage=quay.io/${QUAY_USR}/do400-deploying-environments:build-${BUILD_NUMBER} \
                         -n ${APP_NAMESPACE}
@@ -60,7 +60,7 @@ pipeline {
             input { message 'Deploy to production?' }
             steps {
                 sh """
-                    oc set image \
+                    oc --record set image \
                         deployment ${DEPLOYMENT_CONFIG_PRODUCTION} \
                         shopping-cart-production=quay.io/${QUAY_USR}/do400-deploying-environments:build-${BUILD_NUMBER} \
                         -n ${APP_NAMESPACE}
